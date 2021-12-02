@@ -76,16 +76,11 @@ export default {
 
     methods: {
         getErrorMessage(validatorType) {
-            console.log("validatorType", validatorType)
-
             switch (validatorType) {
-                case "required":
-                    return "Поле является обязательным"
                 case "minValue":
                     return "Минимальная цена товара 0 руб."
                 case "url":
                     return "Некорректная ссылка"
-
                 default:
                     return "Поле является обязательным"
             }
@@ -100,8 +95,13 @@ export default {
             this.v$.$validate()
 
             if (!this.v$.$error) {
-                // alert("Form submit")
-                // create new product
+                const newPost = {
+                    title: this.state.title,
+                    description: this.state.description,
+                    imageLink: this.state.imageLink,
+                    price: this.state.price,
+                }
+                this.$emit("addNewPost", newPost)
             }
         },
     },

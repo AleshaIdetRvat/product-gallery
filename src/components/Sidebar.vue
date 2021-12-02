@@ -27,6 +27,9 @@ export default {
     }
 
     &__title {
+        font-weight: 600;
+        font-size: 28px;
+        color: var(--text);
     }
 
     &__body {
