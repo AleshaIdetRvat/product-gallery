@@ -1,5 +1,5 @@
 .main-button {
-    transition: 0.15s;
+    transition: 0.2s;
     border: none;
     padding: 10px 16px 11px;
     border-radius: 10px;
@@ -9,14 +9,16 @@
     background-color: var(--green);
     box-shadow: var(--small-shadow);
     outline: 2px solid transparent;
+
     &:hover {
         opacity: 0.8;
     }
-    &:active {
-        transform: scale(95%);
-    }
     &:focus {
         outline-color: var(--dark);
+    }
+    &:active {
+        transform: scale(95%);
+        outline-color: transparent;
     }
     &:disabled {
         color: var(--grey-text);

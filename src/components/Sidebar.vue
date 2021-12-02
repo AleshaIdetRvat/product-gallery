@@ -18,4 +18,18 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.sidebar {
+    &__column {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__title {
+    }
+
+    &__body {
+    }
+}
+</style>

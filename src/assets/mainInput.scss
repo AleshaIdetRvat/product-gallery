@@ -1,7 +1,7 @@
 .main-input {
     font-family: inherit;
     font-size: 0.75em;
-    transition: 0.15s;
+    transition: 0.2s;
     border-radius: 4px;
     background-color: var(--white);
     box-shadow: var(--small-shadow);
@@ -19,6 +19,8 @@
     &:focus {
         background-color: #fff;
         outline-color: var(--green);
+        box-shadow: var(--small-shadow), inset var(--small-shadow);
+
         // outline-color: var(--error);
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <form @submit="handleSubmit" class="new-product-form">
         <form-fieldset
-            class="new-product-form"
+            class="new-product-form__field"
             @input="handleInput(v$.title)"
             v-model="state.title"
             legend="Наименование товара"
@@ -11,6 +11,7 @@
             :errorMessage="getErrorMessage(v$.title.$errors[0]?.$validator)"
         />
         <form-fieldset
+            class="new-product-form__field description-field"
             v-model="state.description"
             legend="Описание товара"
             placeholder="Введите описание товара"
@@ -18,6 +19,7 @@
             :isTextarea="true"
         />
         <form-fieldset
+            class="new-product-form__field"
             @input="handleInput(v$.imageLink)"
             v-model="state.imageLink"
             legend="Ссылка на изображение товара"
@@ -26,6 +28,7 @@
             :errorMessage="getErrorMessage(v$.imageLink.$errors[0]?.$validator)"
         />
         <form-fieldset
+            class="new-product-form__field"
             @input="handleInput(v$.price)"
             v-model="state.price"
             type="number"
@@ -34,7 +37,11 @@
             :isInvalid="v$.price.$error && v$.price.$dirty"
             :errorMessage="getErrorMessage(v$.price.$errors[0]?.$validator)"
         />
-        <button :disabled="v$.$error" class="main-button" type="submit">
+        <button
+            :disabled="v$.$error"
+            class="new-product-form__btn main-button"
+            type="submit"
+        >
             Добавить товар
         </button>
     </form>
@@ -101,4 +108,24 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.new-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    border-radius: 4px;
+    background-color: var(--white);
+    box-shadow: var(--big-shadow);
+
+    &__field {
+    }
+
+    &__btn {
+        margin-top: 8px;
+    }
+}
+.description-field {
+    height: 108px;
+}
+</style>

@@ -10,9 +10,8 @@
                 :value="modelValue"
                 :placeholder="placeholder"
                 :type="type"
-                class="fieldset__input main-input"
+                class="fieldset__text-field main-input"
                 @input="changeHandler"
-                @blur="$emit('blur')"
             />
 
             <input
@@ -20,9 +19,8 @@
                 :value="modelValue"
                 :placeholder="placeholder"
                 :type="type"
-                class="fieldset__input main-input"
+                class="fieldset__text-field main-input"
                 @input="changeHandler"
-                @blur="$emit('blur')"
             />
         </div>
 
@@ -56,16 +54,18 @@ export default {
     position: relative;
 
     &.--invalid {
-        .fieldset__input {
+        .fieldset__text-field {
             outline-color: var(--error);
         }
 
         .fieldset__error-message {
             bottom: -1.75em;
+            opacity: 1;
         }
     }
 
     &__body {
+        height: 100%;
         position: relative;
         z-index: 2;
 
@@ -75,9 +75,9 @@ export default {
     }
 
     &__error-message {
-        transition: 0.15s;
+        transition: 0.3s;
         z-index: 1;
-
+        opacity: 0;
         color: var(--error);
         font-size: 0.5em;
         position: absolute;
@@ -107,9 +107,8 @@ export default {
         }
     }
 
-    &__input {
+    &__text-field {
+        flex: 1 1 auto;
     }
-}
-.main-input {
 }
 </style>
