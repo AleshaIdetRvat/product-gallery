@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
 @import "./mainInput.scss";
+@import "./mainButton.scss";
 
 :root {
     --small-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -11,6 +12,7 @@
     --text: #3f3f3f;
     --dark: #49485e;
     --grey-text: #b4b4b4;
+    --grey-disabled: #eeeeee;
     --white: #fffefb;
 }
 * {

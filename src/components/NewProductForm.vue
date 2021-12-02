@@ -34,7 +34,9 @@
             :isInvalid="v$.price.$error && v$.price.$dirty"
             :errorMessage="getErrorMessage(v$.price.$errors[0]?.$validator)"
         />
-        <button type="submit">Добавить товар</button>
+        <button :disabled="v$.$error" class="main-button" type="submit">
+            Добавить товар
+        </button>
     </form>
 </template>
 
@@ -91,7 +93,7 @@ export default {
             this.v$.$validate()
 
             if (!this.v$.$error) {
-                alert("Form submit")
+                // alert("Form submit")
                 // create new product
             }
         },
