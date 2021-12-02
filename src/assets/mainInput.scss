@@ -7,7 +7,7 @@
     box-shadow: var(--small-shadow);
     padding: 10px 16px 12px 16px;
     border: none;
-    outline: 1px solid transparent;
+    outline: 2px solid transparent;
 
     resize: none;
 
@@ -17,6 +17,7 @@
     }
 
     &:focus {
+        background-color: #fff;
         outline-color: var(--green);
         // outline-color: var(--error);
     }

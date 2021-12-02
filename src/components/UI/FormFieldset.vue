@@ -7,18 +7,26 @@
 
             <textarea
                 v-if="isTextarea"
+                :value="modelValue"
                 :placeholder="placeholder"
+                :type="type"
                 class="fieldset__input main-input"
+                @input="changeHandler"
+                @blur="$emit('blur')"
             />
 
             <input
                 v-else
+                :value="modelValue"
                 :placeholder="placeholder"
+                :type="type"
                 class="fieldset__input main-input"
+                @input="changeHandler"
+                @blur="$emit('blur')"
             />
         </div>
 
-        <span class="fieldset__error-message">Поле является обязательным</span>
+        <span class="fieldset__error-message">{{ errorMessage }}</span>
     </div>
 </template>
 
@@ -26,11 +34,19 @@
 export default {
     name: "form-fieldset",
     props: {
-        legend: { type: String },
-        placeholder: { type: String },
+        modelValue: [String, Number],
+        errorMessage: String,
+        type: { type: String, default: "text" },
+        legend: { type: String, required: true },
+        placeholder: String,
         isInvalid: { type: Boolean, default: false },
         isRequired: { type: Boolean, default: true },
         isTextarea: { type: Boolean, default: false },
+    },
+    methods: {
+        changeHandler(event) {
+            this.$emit("update:modelValue", event.target.value)
+        },
     },
 }
 </script>
@@ -59,6 +75,7 @@ export default {
     }
 
     &__error-message {
+        transition: 0.15s;
         z-index: 1;
 
         color: var(--error);
