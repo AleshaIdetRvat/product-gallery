@@ -6,7 +6,7 @@ const prettyPrice = (price) => {
         else throw new Error()
     }
 
-    normalizePrice = normalizePrice.replace(/[A-Za-z!@#$%^&*()\-\s]/g, "")
+    normalizePrice = normalizePrice.replace(/\D/g, "")
 
     let res = []
 

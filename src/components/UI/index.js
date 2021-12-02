@@ -1,2 +1,3 @@
 import FormFieldset from "@/components/UI/FormFieldset"
-export default [FormFieldset]
+import DeleteBtn from "@/components/UI/DeleteBtn"
+export default [FormFieldset, DeleteBtn]

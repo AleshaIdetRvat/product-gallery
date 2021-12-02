@@ -10,7 +10,7 @@
                 :value="modelValue"
                 :placeholder="placeholder"
                 class="fieldset__text-field main-input"
-                @input="changeHandler"
+                @input="inputHandler"
             />
 
             <input
