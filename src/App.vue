@@ -36,12 +36,17 @@ export default {
                             product2[this.selectedSortOption]
                         )
                     break
-                case "date":
+                case "max":
                     sortFunction = (product1, product2) =>
-                        product1.id - product2.id
+                        product1.price.number - product2.price.number
+                    break
+                case "min":
+                    sortFunction = (product1, product2) =>
+                        product2.price.number - product1.price.number
                     break
                 default:
-                    return [...this.products]
+                    sortFunction = (product1, product2) =>
+                        product2.id - product1.id
             }
             return [...this.products].sort(sortFunction)
         },

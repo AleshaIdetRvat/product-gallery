@@ -1,8 +1,6 @@
 <template>
     <select class="select" :value="modelValue" @change="changeHandler">
-        <option class="select__option" disabled selected value="">
-            По умолчанию
-        </option>
+        <option class="select__option" selected value="">По умолчанию</option>
 
         <option v-for="item in options" :key="item.value" :value="item.value">
             {{ item.name }}
