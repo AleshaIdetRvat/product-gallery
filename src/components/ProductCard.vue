@@ -1,6 +1,6 @@
 <template>
     <div class="product-card">
-        <delete-btn class="product-card__delete" />
+        <delete-btn @click="handleClick" class="product-card__delete-btn" />
 
         <header class="product-card__header">
             <img class="product-card__image" :src="product.imageLink" />
@@ -29,13 +29,58 @@ export default {
             required: true,
         },
     },
+    methods: {
+        handleClick() {
+            this.$emit("delete", this.product.id)
+        },
+    },
 }
 </script>
 
 <style lang="scss" scoped>
 .product-card {
-    width: 332px;
-    &__delete {
+    transition: 0.2s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 4px;
+    background-color: var(--white);
+    box-shadow: var(--big-shadow);
+
+    &:hover {
+        box-shadow: var(--big-shadow), var(--big-shadow);
+
+        .product-card__delete-btn {
+            opacity: 1;
+            pointer-events: all;
+            transform: scale(100%);
+
+            &:hover {
+                transform: scale(95%);
+                opacity: 0.8;
+            }
+        }
+    }
+
+    &__delete-btn {
+        position: absolute;
+        right: -8px;
+        top: -8px;
+        opacity: 0;
+        pointer-events: none;
+        cursor: pointer;
+        transform: scale(60%);
+        &:focus {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            opacity: 1;
+            transform: scale(100%);
+        }
     }
 
     &__header {
@@ -43,12 +88,21 @@ export default {
     }
 
     &__image {
+        border-radius: 4px 4px 0 0;
+
         object-fit: cover;
         height: 100%;
         width: 100%;
     }
 
     &__content {
+        height: 100%;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+
+        gap: 16px;
+        padding: 16px;
+        padding-bottom: 24px;
         color: var(--text);
     }
 
@@ -63,9 +117,9 @@ export default {
     }
 
     &__price {
+        margin-top: 16px;
         font-weight: 600;
         font-size: 1.5em;
-        line-height: 1.875em;
     }
 }
 </style>

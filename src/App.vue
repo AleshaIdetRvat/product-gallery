@@ -2,34 +2,24 @@
     <div class="app">
         <div class="app__row">
             <Sidebar @addNewProduct="handleAddNewPost" />
-            <ProductCard :product="products[0]" />
+            <ProductList @delete="handleDelete" :products="products" />
         </div>
     </div>
 </template>
 
 <script>
 import Sidebar from "@/components/Sidebar"
-import ProductCard from "@/components/ProductCard"
-import "@/assets/style.scss"
+import ProductList from "@/components/ProductList"
+import "@/assets/style/style.scss"
 
 export default {
     components: {
         Sidebar,
-        ProductCard,
+        ProductList,
     },
     data() {
         return {
-            products: [
-                {
-                    title: "Наименование товара",
-                    description:
-                        "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
-                    imageLink:
-                        "https://i.scdn.co/image/ab67616d00001e0278f71c0d2fe34592a3c18f80",
-                    price: { pretty: "10 000", number: 10000 },
-                    id: 1638477282016,
-                },
-            ],
+            products: [],
         }
     },
     methods: {
@@ -37,6 +27,32 @@ export default {
             this.products = [newProduct, ...this.products]
             console.log("newProduct", newProduct)
         },
+
+        handleDelete(id) {
+            this.products = this.products.filter((item) => item.id !== id)
+        },
+    },
+    mounted() {
+        const testProduct = {
+            title: "Наименование товара",
+            description:
+                "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
+            imageLink:
+                "https://i.scdn.co/image/ab67616d00001e0278f71c0d2fe34592a3c18f80",
+            price: { pretty: "10 000", number: 10000 },
+            id: 1638477282016,
+        }
+
+        const testDataArray = []
+
+        for (let i = 0; i < 20; i++) {
+            testDataArray.push({
+                ...testProduct,
+                id: testProduct.id + i,
+            })
+        }
+
+        this.products = testDataArray
     },
 }
 </script>
@@ -48,6 +64,10 @@ export default {
     padding: 32px;
     padding-bottom: 0;
     color: var(--text);
+
+    @media (max-width: 768px) {
+        padding: 16px;
+    }
 
     &__row {
         display: flex;

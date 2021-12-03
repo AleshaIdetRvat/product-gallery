@@ -25,7 +25,11 @@ export default {
 
 <style lang="scss">
 .sidebar {
-    max-width: 332px;
+    align-self: flex-start;
+    flex: 0 1 332px;
+
+    position: sticky;
+    top: -34px;
 
     &__column {
         display: flex;
