@@ -1,7 +1,7 @@
 <template>
     <select class="select" :value="modelValue" @change="changeHandler">
         <option class="select__option" disabled selected value="">
-            Выберите из списка
+            По умолчанию
         </option>
 
         <option v-for="item in options" :key="item.value" :value="item.value">
@@ -30,13 +30,26 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .select {
+    transition: 0.2s;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 8px;
+    width: 100%;
+    height: 36px;
+    padding: 10px 0px 11px 14px;
+    border-radius: 4px;
     background: var(--white);
-}
-.select__option {
+    border: none;
+    outline: 2px solid transparent;
+    font-size: 0.75em;
+    color: var(--grey-text);
+
+    &:hover {
+        outline-color: var(--green);
+    }
+    &:focus {
+        outline-color: var(--grey-text);
+        color: var(--dark);
+    }
 }
 </style>

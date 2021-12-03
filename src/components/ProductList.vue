@@ -1,6 +1,6 @@
 <template>
     <div class="product-list">
-        <div v-if="products.length > 0" class="product-list__container">
+        <div class="product-list__container">
             <transition-group
                 class="product-list__grid list"
                 name="list-complete"
@@ -65,8 +65,7 @@ export default {
 .list-complete-leave-active {
     transform: scale(10%);
     opacity: 0;
-    transition: 0.5s;
-    transition: opacity 0.3s, transform 0.5s;
+    transition: opacity 0.5s, transform 0.7s;
 }
 
 .list-complete-leave-active {

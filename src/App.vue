@@ -2,7 +2,14 @@
     <div class="app">
         <div class="app__row">
             <Sidebar @addNewProduct="handleAddNewPost" />
-            <ProductList @delete="handleDelete" :products="products" />
+            <div class="app__product-list">
+                <main-select
+                    v-model="selectedSortOption"
+                    :options="sortOptions"
+                />
+            </div>
+
+            <ProductList @delete="handleDelete" :products="sortedProducts" />
         </div>
     </div>
 </template>
@@ -10,6 +17,8 @@
 <script>
 import Sidebar from "@/components/Sidebar"
 import ProductList from "@/components/ProductList"
+import testPhoto from "@/assets/image/testPhoto.png"
+import { prettyPrice } from "@/utils/prettyPrice"
 import "@/assets/style/style.scss"
 
 export default {
@@ -17,9 +26,36 @@ export default {
         Sidebar,
         ProductList,
     },
+    computed: {
+        sortedProducts() {
+            let sortFunction
+            switch (this.selectedSortOption) {
+                case "title":
+                    sortFunction = (product1, product2) =>
+                        product1[this.selectedSortOption].localeCompare(
+                            product2[this.selectedSortOption]
+                        )
+                    break
+                case "date":
+                    sortFunction = (product1, product2) =>
+                        product1.id - product2.id
+                    break
+                default:
+                    return [...this.products]
+            }
+            return [...this.products].sort(sortFunction)
+        },
+    },
     data() {
         return {
             products: [],
+            isModalShow: false,
+            sortOptions: [
+                { value: "title", name: "По наименованию" },
+                { value: "max", name: "По возрастанию цены" },
+                { value: "min", name: "По убыванию цены" },
+            ],
+            selectedSortOption: "",
         }
     },
     methods: {
@@ -37,8 +73,7 @@ export default {
             title: "Наименование товара",
             description:
                 "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
-            imageLink:
-                "https://i.scdn.co/image/ab67616d00001e0278f71c0d2fe34592a3c18f80",
+            imageLink: testPhoto,
             price: { pretty: "10 000", number: 10000 },
             id: 1638477282016,
         }
@@ -46,8 +81,14 @@ export default {
         const testDataArray = []
 
         for (let i = 0; i < 20; i++) {
+            const randomPrice = Math.floor(Math.random() * 10000)
+
             testDataArray.push({
                 ...testProduct,
+                price: {
+                    number: randomPrice,
+                    pretty: prettyPrice(randomPrice),
+                },
                 id: testProduct.id + i,
             })
         }
@@ -72,6 +113,9 @@ export default {
     &__row {
         display: flex;
         gap: 16px;
+    }
+
+    &__product-list {
     }
 }
 </style>

@@ -5,7 +5,6 @@ const prettyPrice = (price) => {
         if (typeof price === "number") normalizePrice = String(price)
         else throw new Error()
     }
-
     normalizePrice = normalizePrice.replace(/\D/g, "")
 
     let res = []
