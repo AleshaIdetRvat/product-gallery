@@ -4,12 +4,15 @@
             <Sidebar @addNewProduct="handleAddNewPost" />
             <div class="app__product-list">
                 <main-select
+                    class="app__product-list-selector"
                     v-model="selectedSortOption"
                     :options="sortOptions"
                 />
+                <ProductList
+                    @delete="handleDelete"
+                    :products="sortedProducts"
+                />
             </div>
-
-            <ProductList @delete="handleDelete" :products="sortedProducts" />
         </div>
     </div>
 </template>
@@ -65,40 +68,63 @@ export default {
     },
     methods: {
         handleAddNewPost(newProduct) {
-            this.products = [newProduct, ...this.products]
-            console.log("newProduct", newProduct)
+            const newProducts = [newProduct, ...this.products]
+            this.products = newProducts
+
+            localStorage.setItem(
+                "productsListData",
+                JSON.stringify(newProducts)
+            )
         },
 
         handleDelete(id) {
-            this.products = this.products.filter((item) => item.id !== id)
+            const newProducts = this.products.filter((item) => item.id !== id)
+
+            this.products = newProducts
+
+            localStorage.setItem(
+                "productsListData",
+                JSON.stringify(newProducts)
+            )
         },
     },
     mounted() {
-        const testProduct = {
-            title: "Наименование товара",
-            description:
-                "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
-            imageLink: testPhoto,
-            price: { pretty: "10 000", number: 10000 },
-            id: 1638477282016,
+        const localStoragePosts = localStorage.getItem("productsListData")
+
+        let initialProducts = []
+
+        if (localStoragePosts !== null) {
+            initialProducts = JSON.parse(localStoragePosts)
+        } else {
+            const testProduct = {
+                title: "Наименование товара",
+                description:
+                    "Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк",
+                imageLink: testPhoto,
+                price: { pretty: "10 000", number: 10000 },
+                id: 1638477282016,
+            }
+
+            for (let i = 0; i < 20; i++) {
+                const randomPrice = Math.floor(Math.random() * 10000)
+
+                initialProducts.push({
+                    ...testProduct,
+                    price: {
+                        number: randomPrice,
+                        pretty: prettyPrice(randomPrice),
+                    },
+                    id: testProduct.id + i,
+                })
+            }
+
+            localStorage.setItem(
+                "productsListData",
+                JSON.stringify(initialProducts)
+            )
         }
 
-        const testDataArray = []
-
-        for (let i = 0; i < 20; i++) {
-            const randomPrice = Math.floor(Math.random() * 10000)
-
-            testDataArray.push({
-                ...testProduct,
-                price: {
-                    number: randomPrice,
-                    pretty: prettyPrice(randomPrice),
-                },
-                id: testProduct.id + i,
-            })
-        }
-
-        this.products = testDataArray
+        this.products = initialProducts
     },
 }
 </script>
@@ -121,6 +147,13 @@ export default {
     }
 
     &__product-list {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    &__product-list-selector {
+        align-self: flex-end;
     }
 }
 </style>
