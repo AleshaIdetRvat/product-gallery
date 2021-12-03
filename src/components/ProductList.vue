@@ -54,7 +54,9 @@ export default {
 .list-complete-item {
 }
 .list-complete-move {
-    transition: 0.7s;
+    transition: 0.6s ease;
+
+    opacity: 0.9;
 }
 .list-complete-enter-from,
 .list-complete-leave-to {
@@ -65,7 +67,7 @@ export default {
 .list-complete-leave-active {
     transform: scale(10%);
     opacity: 0;
-    transition: opacity 0.5s, transform 0.7s;
+    transition: opacity 0.2s, transform 1s;
 }
 
 .list-complete-leave-active {

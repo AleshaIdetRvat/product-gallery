@@ -1,8 +1,6 @@
 <template>
     <select class="select" :value="modelValue" @change="changeHandler">
-        <option class="select__option" disabled selected value="">
-            По умолчанию
-        </option>
+        <option class="select__option" selected value="">По умолчанию</option>
 
         <option v-for="item in options" :key="item.value" :value="item.value">
             {{ item.name }}
@@ -34,11 +32,11 @@ export default {
 .select {
     transition: 0.2s;
     cursor: pointer;
-    width: 100%;
     height: 36px;
     padding: 10px 0px 11px 14px;
     border-radius: 4px;
     background: var(--white);
+    box-shadow: var(--small-shadow);
     border: none;
     outline: 2px solid transparent;
     font-size: 0.75em;

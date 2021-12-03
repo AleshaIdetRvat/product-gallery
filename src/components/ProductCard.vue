@@ -30,8 +30,10 @@ export default {
         },
     },
     methods: {
-        handleClick() {
+        handleClick(event) {
             this.$emit("delete", this.product.id)
+            const productElement = event.currentTarget.parentNode
+            productElement.style.width = productElement.offsetWidth + "px"
         },
     },
 }
