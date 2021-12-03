@@ -9,18 +9,16 @@
                 v-if="isTextarea"
                 :value="modelValue"
                 :placeholder="placeholder"
-                :type="type"
                 class="fieldset__text-field main-input"
-                @input="changeHandler"
+                @input="inputHandler"
             />
 
             <input
                 v-else
                 :value="modelValue"
                 :placeholder="placeholder"
-                :type="type"
                 class="fieldset__text-field main-input"
-                @input="changeHandler"
+                @input="inputHandler"
             />
         </div>
 
@@ -29,6 +27,8 @@
 </template>
 
 <script>
+import { prettyPrice } from "@/utils/prettyPrice"
+
 export default {
     name: "form-fieldset",
     props: {
@@ -42,8 +42,14 @@ export default {
         isTextarea: { type: Boolean, default: false },
     },
     methods: {
-        changeHandler(event) {
-            this.$emit("update:modelValue", event.target.value)
+        inputHandler(event) {
+            if (this.type !== "number")
+                this.$emit("update:modelValue", event.target.value)
+            else {
+                const price = prettyPrice(event.target.value).trim()
+                event.target.value = price
+                this.$emit("update:modelValue", price)
+            }
         },
     },
 }

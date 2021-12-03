@@ -3,7 +3,7 @@
         <div class="sidebar__column">
             <h2 class="sidebar__title">Добавление товара</h2>
             <div class="sidebar__body">
-                <NewProductForm />
+                <NewProductForm @addNewProduct="handleAddNewPost" />
             </div>
         </div>
     </aside>
@@ -15,11 +15,22 @@ import NewProductForm from "@/components/NewProductForm"
 export default {
     components: { NewProductForm },
     props: {},
+    methods: {
+        handleAddNewPost(newProduct) {
+            this.$emit("addNewProduct", newProduct)
+        },
+    },
 }
 </script>
 
 <style lang="scss">
 .sidebar {
+    align-self: flex-start;
+    flex: 0 1 332px;
+
+    position: sticky;
+    top: -34px;
+
     &__column {
         display: flex;
         flex-direction: column;

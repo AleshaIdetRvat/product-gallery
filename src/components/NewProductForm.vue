@@ -49,8 +49,9 @@
 
 <script>
 import useValidate from "@vuelidate/core"
-import { required, url, integer, minValue } from "@vuelidate/validators"
+import { required, url } from "@vuelidate/validators"
 import { computed, reactive } from "vue"
+import { parsePrettyPrice } from "@/utils/prettyPrice"
 
 export default {
     setup() {
@@ -60,12 +61,12 @@ export default {
             imageLink: "",
             price: "",
         })
+
         const rules = computed(() => {
             return {
                 title: { required },
-                description: {},
                 imageLink: { required, url },
-                price: { required, integer, minValue: minValue(0) },
+                price: { required },
             }
         })
 
@@ -99,9 +100,20 @@ export default {
                     title: this.state.title,
                     description: this.state.description,
                     imageLink: this.state.imageLink,
-                    price: this.state.price,
+                    price: {
+                        pretty: this.state.price,
+                        number: parsePrettyPrice(this.state.price),
+                    },
+                    id: Date.now(),
                 }
-                this.$emit("addNewPost", newPost)
+                this.$emit("addNewProduct", newPost)
+
+                this.v$.$reset()
+
+                this.state.title = ""
+                this.state.description = ""
+                this.state.imageLink = ""
+                this.state.price = ""
             }
         },
     },
