@@ -2,7 +2,11 @@
     <div v-if="isShow" class="modal" @click="hideModal">
         <div @click.stop class="modal__container">
             <div class="modal__column">
-                <button @click="hideModal" aria-label="close modal window">
+                <button
+                    class="modal__close-btn"
+                    @click="hideModal"
+                    aria-label="close modal window"
+                >
                     ×
                 </button>
                 <slot></slot>
@@ -44,7 +48,7 @@ export default {
     }
 
     100% {
-        transform: scale(100%);
+        transform: scale(130%);
     }
 }
 .modal {
@@ -62,22 +66,32 @@ export default {
     align-items: center;
     justify-content: center;
 
-    background-color: #000000b0;
+    background-color: #00000070;
 }
 
 .modal__container {
     animation: showing-translate-animation 0.3s ease forwards;
 
-    min-width: 33vw;
+    min-width: 70vw;
+    transform: scale(120%);
     padding: 20px;
     border-radius: 8px;
 
     background-color: var(--black);
 }
-
+.modal__close-btn {
+    align-self: flex-end;
+    background-color: var(--error);
+    border: none;
+    border-radius: 5px;
+    padding: 1px 14px 0px 14px;
+    /* color: white; */
+    font-weight: 600;
+    font-size: 1.5em;
+}
 .modal__column {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 8px;
 }
 </style>

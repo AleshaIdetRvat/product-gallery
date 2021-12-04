@@ -1,6 +1,9 @@
 <template>
     <div class="app">
-        <modal-window v-if="$screen.width < 768" v-model:isShow="isModalShow" />
+        <modal-window v-if="$screen.width < 768" v-model:isShow="isModalShow">
+            <NewProductForm @addNewProduct="handleAddNewPost" />
+        </modal-window>
+
         <div class="app__row">
             <Sidebar
                 v-if="$screen.width >= 768"
@@ -35,12 +38,14 @@
 import Sidebar from "@/components/Sidebar"
 import ProductList from "@/components/ProductList"
 import testPhoto from "@/assets/image/testPhoto.png"
+import NewProductForm from "@/components/NewProductForm.vue"
 import { prettyPrice } from "@/utils/prettyPrice"
 import "@/assets/style/style.scss"
 
 export default {
     components: {
         Sidebar,
+        NewProductForm,
         ProductList,
     },
     computed: {
@@ -89,6 +94,8 @@ export default {
                 "productsListData",
                 JSON.stringify(newProducts)
             )
+
+            this.isModalShow = false
         },
 
         handleDelete(id) {
