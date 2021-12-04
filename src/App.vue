@@ -1,13 +1,27 @@
 <template>
     <div class="app">
+        <modal-window v-if="$screen.width < 768" v-model:isShow="isModalShow" />
         <div class="app__row">
-            <Sidebar @addNewProduct="handleAddNewPost" />
+            <Sidebar
+                v-if="$screen.width >= 768"
+                @addNewProduct="handleAddNewPost"
+            />
             <div class="app__product-list">
-                <main-select
-                    class="app__product-list-selector"
-                    v-model="selectedSortOption"
-                    :options="sortOptions"
-                />
+                <div class="app__head-bar">
+                    <button
+                        @click="showModalWindow"
+                        class="main-button"
+                        v-if="$screen.width < 768"
+                    >
+                        Добавить товар
+                    </button>
+                    <main-select
+                        class="app__product-list-selector"
+                        v-model="selectedSortOption"
+                        :options="sortOptions"
+                    />
+                </div>
+
                 <ProductList
                     @delete="handleDelete"
                     :products="sortedProducts"
@@ -87,8 +101,13 @@ export default {
                 JSON.stringify(newProducts)
             )
         },
+        showModalWindow() {
+            this.isModalShow = true
+        },
     },
     mounted() {
+        console.log(this.$screen)
+
         const localStoragePosts = localStorage.getItem("productsListData")
 
         let initialProducts = []
@@ -151,6 +170,13 @@ export default {
         display: flex;
         flex-direction: column;
         gap: 16px;
+    }
+    &__head-bar {
+        display: flex;
+        justify-content: flex-end;
+        @media (max-width: 768px) {
+            justify-content: space-between;
+        }
     }
     &__product-list-selector {
         align-self: flex-end;
