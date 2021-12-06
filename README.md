@@ -1,5 +1,8 @@
 # idaproject-test
 
+## Deploy
+ [https://test-idaproject.netlify.app](https://test-idaproject.netlify.app)
+
 ## Project setup
 ```
 yarn install
